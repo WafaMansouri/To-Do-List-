@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
-
-function App() {
+import Task from './Task';
+function App(props) {
+  let [tasks, setTasks]=useState(["My first task", "My second task"]);
+  let [newTask, setNewTask]=useState("");
+  let topButton="Add Task";
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1 style={{color:'#008B8B',marginBottom: '70px'}}>My To-Do List</h1>
+        <form>
+            <input value={newTask} type="text" style={{fontSize:'1em', width:'200px'}} placeholder="Write your new task" onChange={e=>
+            {setNewTask(e.target.value)}}></input>
+            <button onClick={(e)=>{newTask!=="" && setTasks([...tasks, newTask]);
+            e.preventDefault();setNewTask("")}}>{topButton}</button>
+        </form>
+            {tasks.map((el,index)=> <Task elem={el} key={index}/>)}
     </div>
   );
 }
